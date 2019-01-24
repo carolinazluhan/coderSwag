@@ -8,14 +8,10 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import com.example.carolina.coderswag2.Model.Category
 import com.example.carolina.coderswag2.R
-import org.w3c.dom.Text
 import android.widget.TextView
 
 
-class CategoryAdapter(context: Context, categories: List<Category>) : BaseAdapter() {
-
-    val context = context
-    val categories = categories
+class CategoryAdapter(val context: Context, val categories: List<Category>) : BaseAdapter() {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val categoryView: View
