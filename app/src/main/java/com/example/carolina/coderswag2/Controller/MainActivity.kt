@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         adapter = CategoryRecyclerAdapter(this, DataService.categories) {category ->
-            val productIntent = Intent(this, ProductsActivity::class.java)
+            val productIntent = Intent(this, ProductActivity::class.java)
             productIntent.putExtra(EXTRA_CATEGORY, category.title)
             startActivity(productIntent)
         }
@@ -28,12 +28,6 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         categoryListView.layoutManager = layoutManager
         categoryListView.setHasFixedSize(true)
-
-//        categoryListView.setOnItemClickListener { adapterView, view, i, l ->
-//            val category = DataService.categories[i]
-//                Toast.makeText(this, "You clicked on the ${category.title} cell", Toast.LENGTH_SHORT)
-//        }
-
 
     }
 }

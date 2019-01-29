@@ -10,25 +10,25 @@ import android.widget.TextView
 import com.example.carolina.coderswag2.Model.Product
 import com.example.carolina.coderswag2.R
 
-class ProductsAdapter(val context: Context, val products: List<Product>) : RecyclerView.Adapter<ProductsAdapter.ProductHolder>() {
+class ProductsAdapter(val context: Context, val products: List<Product>, val itemClick: (Product) -> Unit) : RecyclerView.Adapter<ProductsAdapter.ProductHolder>() {
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ProductHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.product_list_item, p0, false)
-        return ProductHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
+        val view = LayoutInflater.from(context).inflate(R.layout.product_list_item, parent, false)
+        return ProductHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
         return products.count()
     }
 
-    override fun onBindViewHolder(p0: ProductHolder, p1: Int) {
-        p0?.bindProduct(products[p1], context)
+    override fun onBindViewHolder(holder: ProductHolder, position: Int) {
+        holder?.bindProduct(products[position], context)
     }
 
-    inner class ProductHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ProductHolder(itemView: View, val itemClick: (Product) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-        val productImage = itemView?.findViewById<ImageView>(R.id.productImage)
-        val productName = itemView?.findViewById<TextView>(R.id.productName)
+        val productImage = itemView?.findViewById<ImageView>(R.id.productDetailImage)
+        val productName = itemView?.findViewById<TextView>(R.id.productDetailTitle)
         val productPrice = itemView?.findViewById<TextView>(R.id.productPrice)
 
         fun bindProduct(product: Product, context: Context) {
@@ -37,6 +37,7 @@ class ProductsAdapter(val context: Context, val products: List<Product>) : Recyc
             productName?.text = product.title
             productPrice?.text = product.price
 
+            itemView.setOnClickListener { itemClick(product) }
         }
 
     }
